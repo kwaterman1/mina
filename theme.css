@@ -1,0 +1,35 @@
+/* Variables de diseño que antes ponía la plataforma de Claude. Cambia aquí colores y tipografía. */
+:root {
+  --font-anthropic-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-anthropic-serif: Georgia, "Times New Roman", serif;
+  --color-fg: #1f1e1c; --color-fg-muted: #6b6862; --color-bg: #ffffff; --color-panel: #f7f6f3; --color-border-line: #e3e1db;
+  --color-ok: #2e7d4f; --color-warn: #b06a00; --color-bad: #c0392f;
+  --cds-font-size-caption: 12px; --cds-font-size-body: 14px; --cds-font-size-heading: 17px; --cds-font-size-title: 28px;
+  --cds-font-weight-medium: 600;
+  --cds-gap-xs: 4px; --cds-gap-sm: 8px; --cds-gap-md: 12px; --cds-gap-lg: 20px; --cds-gap-xl: 32px;
+  --cds-pad-xs: 4px; --cds-pad-sm: 8px; --cds-pad-md: 12px; --cds-pad-lg: 16px; --cds-pad-xl: 24px;
+  --cds-radius: 8px; --cds-dur-slow: 400ms; --cds-ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --chart-1: #2f6fd1; --chart-2: #e07b39; --chart-3: #2a9d8f; --chart-4: #8e5cc4; --chart-5: #c9a227; --chart-6: #d1495b;
+  --cds-chart-muted: #b9b5ad; --cds-chart-status-critical: #d1352b; --cds-chart-grid: #ece9e3; --cds-chart-axis: #c9c5bd; --cds-chart-reference: #8a867f;
+  --cds-surface-popover: #ffffff; --cds-border: #dedad3; --cds-shadow-popover: 0 4px 16px rgba(0, 0, 0, 0.12); --cds-text-secondary: #6b6862;
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-fg: #ecebe8; --color-fg-muted: #a8a49c; --color-bg: #1c1b19; --color-panel: #262522; --color-border-line: #3a3834;
+    --color-ok: #5cbf86; --color-warn: #e0a23c; --color-bad: #ef6b5f;
+    --chart-1: #6a9df0; --chart-2: #f09a5e; --chart-3: #4fc2b3; --chart-4: #b48ae0; --chart-5: #e2c45a; --chart-6: #ef7a88;
+    --cds-chart-muted: #6e6a63; --cds-chart-grid: #2f2e2b; --cds-chart-axis: #4a4843; --cds-chart-reference: #8f8b84;
+    --cds-surface-popover: #2b2a27; --cds-border: #45433e; --cds-shadow-popover: 0 4px 16px rgba(0, 0, 0, 0.5); --cds-text-secondary: #a8a49c;
+  }
+}
+html, body { margin: 0; background: var(--color-bg); color: var(--color-fg); font-family: var(--font-anthropic-sans); font-size: var(--cds-font-size-body); }
+#dash-root { max-width: 1280px; margin: 0 auto; padding: 24px 24px 64px; box-sizing: border-box; }
+.dash-select { appearance: none; font: inherit; font-size: var(--cds-font-size-body); color: var(--color-fg); background-color: var(--color-bg);
+  border: 1px solid var(--color-border-line); border-radius: 6px; padding: 6px 28px 6px 10px; min-width: 140px;
+  background-image: linear-gradient(45deg, transparent 50%, currentColor 50%), linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position: calc(100% - 15px) 55%, calc(100% - 10px) 55%; background-size: 5px 5px; background-repeat: no-repeat; }
+.dash-skeleton { color: transparent !important; background: var(--color-border-line); border-radius: 4px; min-width: 2em; }
+@media (prefers-reduced-motion: no-preference) { .dash-skeleton { animation: sk 1.2s ease-in-out infinite alternate; } }
+@keyframes sk { from { opacity: 0.5; } to { opacity: 1; } }
+@media (max-width: 600px) { #dash-root { padding: 16px 12px 48px; } }

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Distritos alrededor de la mina: antes y después de 2019</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta property="og:title" content="Distritos alrededor de la mina: antes y después de 2019">
+<meta property="og:image" content="thumbnail.png">
+<link rel="stylesheet" href="theme.css">
+<link rel="stylesheet" href="tablero.css">
+<link rel="stylesheet" href="st.css">
+</head>
+<body>
+<div id="dash-root">
+<nav class="vw-tabs" aria-label="Vistas">
+  <button type="button" data-tab="tablero" aria-selected="true">Dashboard</button>
+  <button type="button" data-tab="historia" aria-selected="false">Historia</button>
+</nav>
+<section id="tablero">
+<div class="mz" data-read lang="es">
+
+<header id="encabezado">
+  <h1>Distritos alrededor de la mina Cobre Panamá: ¿cambió la situación tras 2019?</h1>
+  <p class="lead" style="margin-top:8px">Entre 2015 y 2023 la pobreza general del área de estudio (La Pintada, Donoso y Omar Torrijos Herrera) pasó de <b data-draw="lead_a" data-source="antes_despues" data-field="antes" data-where="clave=area_pgen_b">—</b> a <b data-draw="lead_b" data-source="antes_despues" data-field="despues" data-where="clave=area_pgen_b">—</b>, un cambio de <b data-draw="lead_c" data-source="antes_despues" data-field="cambio" data-where="clave=area_pgen_b">—</b> puntos; en 2011–2015, en solo cuatro años, el cambio había sido de <b data-draw="lead_d" data-source="antes_despues" data-field="cambio" data-where="clave=area_pgen_a">—</b> puntos. En Coclé y Colón, el empleo en minas y canteras pasó de <b data-draw="lead_e" data-source="periodos_lab" data-field="operacion" data-where="clave=cocle_colon_ocup_mineria">—</b> ocupados al año durante la operación a <b data-draw="lead_f" data-source="periodos_lab" data-field="post" data-where="clave=cocle_colon_ocup_mineria">—</b> con la mina paralizada.</p>
+</header>
+
+<section id="filtros" class="card">
+  <div class="controls">
+    <label>Año
+      <select class="dash-select" id="f-anio" aria-label="Año">
+        <option>2010</option><option>2011</option><option>2012</option><option>2013</option><option>2014</option><option>2015</option><option>2016</option><option>2017</option><option>2018</option><option>2019</option><option>2020</option><option>2021</option><option>2022</option><option>2023</option><option>2024</option><option>2025</option><option>2026</option>
+      </select>
+    </label>
+    <label>Distrito
+      <select class="dash-select" id="f-distrito" aria-label="Distrito">
+        <option value="">Los tres distritos</option>
+        <option>La Pintada</option>
+        <option>Donoso</option>
+        <option>Omar Torrijos Herrera</option>
+      </select>
+    </label>
+  </div>
+  <div class="timeline" style="margin-top:var(--cds-gap-md)" aria-label="Etapas de la mina">
+    <div data-etapa="pre">Antes de la operación comercial (≤2018, incluye construcción)</div>
+    <div data-etapa="op">Operación comercial (2019–nov. 2023)</div>
+    <div data-etapa="post">Paralizada (2024–2026)</div>
+  </div>
+  <p class="periodo" style="margin-top:6px">Año seleccionado: <b data-draw="periodo_txt">—</b></p>
+</section>
+
+<section id="indicadores">
+  <h2>Indicadores clave en el año seleccionado</h2>
+  <p class="muted" style="margin-bottom:var(--cds-gap-sm)">La pobreza se midió en 2011, 2015 y 2023 (IPM en 2010 y 2023): cada tarjeta usa la medición más reciente hasta el año elegido. El empleo es provincial (Coclé para La Pintada; Colón para Donoso y Omar Torrijos Herrera) y se compara con 2018, el último año antes de la operación.</p>
+  <div class="tiles">
+    <div class="card tile" id="k-pgen"><div class="lbl">Pobreza general (ingreso)</div><div class="val" data-draw="k_pgen">—</div><div class="dlt" data-draw="k_pgen_d">—</div><div class="muted" data-draw="k_pgen_w">—</div></div>
+    <div class="card tile" id="k-pext"><div class="lbl">Pobreza extrema (ingreso)</div><div class="val" data-draw="k_pext">—</div><div class="dlt" data-draw="k_pext_d">—</div><div class="muted" data-draw="k_pext_w">—</div></div>
+    <div class="card tile" id="k-ipm"><div class="lbl">Pobreza multidimensional (IPM)</div><div class="val" data-draw="k_ipm">—</div><div class="dlt" data-draw="k_ipm_d">—</div><div class="muted" data-draw="k_ipm_w">—</div></div>
+    <div class="card tile" id="k-des"><div class="lbl">Tasa de desempleo provincial</div><div class="val" data-draw="k_des">—</div><div class="dlt" data-draw="k_des_d">—</div><div class="muted" data-draw="k_des_w">—</div></div>
+    <div class="card tile" id="k-inf"><div class="lbl">Empleo informal no agrícola</div><div class="val" data-draw="k_inf">—</div><div class="dlt" data-draw="k_inf_d">—</div><div class="muted" data-draw="k_inf_w">—</div></div>
+    <div class="card tile" id="k-min"><div class="lbl">Ocupados en minas y canteras</div><div class="val" data-draw="k_min">—</div><div class="dlt" data-draw="k_min_d">—</div><div class="muted" data-draw="k_min_w">—</div></div>
+  </div>
+</section>
+
+<section id="mapa-sec" class="card">
+  <h2>Mapa por corregimiento</h2>
+  <p class="muted">Elige la capa de fondo y superpone escuelas, salud y la mina. Las capas de pobreza siguen el filtro de año.</p>
+  <div class="controls" style="margin:var(--cds-gap-sm) 0">
+    <label>Capa
+      <select class="dash-select" id="f-capa" aria-label="Capa del mapa">
+        <optgroup label="Pobreza (sigue el año)">
+          <option value="pgen">Pobreza general (%)</option>
+          <option value="pext">Pobreza extrema (%)</option>
+          <option value="ipm">Pobreza multidimensional, IPM (%)</option>
+        </optgroup>
+        <optgroup label="Antes vs. después">
+          <option value="d_pgen">Cambio en pobreza general 2015→2023 (pp)</option>
+          <option value="d_pext">Cambio en pobreza extrema 2015→2023 (pp)</option>
+          <option value="d_ipm">Cambio en IPM 2010→2023 (pp)</option>
+        </optgroup>
+        <optgroup label="Situación reciente">
+          <option value="ingreso_pc_2023">Ingreso per cápita promedio 2023 (B/.)</option>
+          <option value="pinf_gen_2023">Pobreza infantil 2023 (%)</option>
+          <option value="matricula_x1000">Educación: matrícula 2026 por 1.000 hab.</option>
+          <option value="pct_salud_funciona">Salud: instalaciones que funcionan 2024 (%)</option>
+          <option value="mides_x100">Beneficiarios MIDES 2024 por 100 hab.</option>
+          <option value="pct_sup_sin_titulo">Tierra agropecuaria sin título 2024 (%)</option>
+        </optgroup>
+      </select>
+    </label>
+  </div>
+  <div class="checks">
+    Superponer:
+    <label><input type="checkbox" id="ov-mina"> Mina (ubicación aprox.)</label>
+    <label><input type="checkbox" id="ov-esc"> Escuelas (tamaño = matrícula)</label>
+    <label><input type="checkbox" id="ov-sal"> Instalaciones de salud</label>
+    <label><input type="checkbox" id="ov-lbl"> Nombres</label>
+  </div>
+  <div class="mapbox" id="mapa" data-draw="mapa" data-source="unidades mapa escuelas salud" role="img" aria-label="Mapa coroplético de los corregimientos del área de estudio"></div>
+  <div class="legend" data-draw="mapa_leyenda"></div>
+  <p class="note">Límites de corregimientos anteriores a 2018 (geoBoundaries): Llano Norte se muestra dentro de Llano Grande, y Nueva Esperanza y San Juan de Turbe dentro de San José del General; sus valores se ponderan por población. Pasa el cursor sobre un corregimiento para ver el detalle.</p>
+</section>
+
+<section id="antes-despues">
+  <h2>Antes y después: pobreza por distrito</h2>
+  <p class="muted" style="margin-bottom:var(--cds-gap-sm)">Promedios ponderados por población. «Mejora» = baja de 2 puntos o más; «Deterioro» = sube 2 puntos o más. La columna anual permite comparar el ritmo de 2011–2015 con el de 2015–2023.</p>
+  <div class="grid2">
+    <div class="card">
+      <div class="controls" style="margin-bottom:var(--cds-gap-sm)">
+        <label>Indicador
+          <select class="dash-select" id="f-pobind" aria-label="Indicador de pobreza">
+            <option value="pgen">Pobreza general</option>
+            <option value="pext">Pobreza extrema</option>
+            <option value="ipm">IPM</option>
+          </select>
+        </label>
+      </div>
+      <div class="chart" id="pobreza-trend" data-draw="pob_trend" data-source="indicadores" role="img" aria-label="Evolución de la pobreza por distrito en 2010-2011, 2015 y 2023"></div>
+    </div>
+    <div class="card">
+      <h2 style="font-size:var(--cds-font-size-body)">Cambio en pobreza general 2015→2023 por corregimiento (pp)</h2>
+      <div class="chart" id="cambio-unidades" data-draw="cambio_unid" data-source="unidades" role="img" aria-label="Cambio en puntos porcentuales de la pobreza general por corregimiento"></div>
+    </div>
+  </div>
+  <div class="card tblwrap" style="margin-top:var(--cds-gap-lg)">
+    <table id="tabla-ad" data-source="antes_despues" data-row-key="clave">
+      <thead><tr><th data-field="territorio">Territorio</th><th data-field="indicador">Indicador</th><th data-field="periodo">Periodo</th><th class="n" data-field="antes">Antes (%)</th><th class="n" data-field="despues">Después (%)</th><th class="n" data-field="cambio">Cambio (pp)</th><th class="n" data-field="cambio_anual">pp por año</th><th data-field="veredicto">Lectura</th></tr></thead>
+      <tbody data-draw="tabla_ad"></tbody>
+    </table>
+  </div>
+</section>
+
+<section id="empleo">
+  <h2>Empleo: Coclé y Colón antes, durante y después de la operación</h2>
+  <p class="muted" style="margin-bottom:var(--cds-gap-sm)">Encuesta de Mercado Laboral (INEC), nivel provincial. 2020 no tiene datos provinciales. Las cifras por rama son estimaciones de encuesta: tómalas como tendencia, no como conteo exacto.</p>
+  <div class="grid2">
+    <div class="card">
+      <div class="controls" style="margin-bottom:var(--cds-gap-sm)">
+        <label>Indicador
+          <select class="dash-select" id="f-labind" aria-label="Indicador laboral">
+            <option value="ocup_mineria">Ocupados en minas y canteras</option>
+            <option value="tasa_desempleo">Tasa de desempleo (%)</option>
+            <option value="pct_informal">Empleo informal no agrícola (%)</option>
+            <option value="ocup_agro">Ocupados en agricultura y ganadería</option>
+            <option value="ocup_construccion">Ocupados en construcción</option>
+            <option value="ocupados">Total de ocupados</option>
+          </select>
+        </label>
+      </div>
+      <div class="chart" id="empleo-serie" data-draw="lab_chart" data-source="lab_anual" role="img" aria-label="Serie anual del indicador laboral por provincia"></div>
+    </div>
+    <div class="card">
+      <div class="controls" style="margin-bottom:var(--cds-gap-sm)">
+        <label>Provincia
+          <select class="dash-select" id="f-ramaprov" aria-label="Provincia">
+            <option>Colón</option><option>Coclé</option>
+          </select>
+        </label>
+        <label>Área
+          <select class="dash-select" id="f-ramaarea" aria-label="Área">
+            <option>Total</option><option>Rural</option><option>Urbana</option>
+          </select>
+        </label>
+      </div>
+      <p class="muted" style="margin-bottom:6px">Ocupados por rama de actividad en el año seleccionado (barra) frente a 2018 (marca).</p>
+      <div class="chart" id="ramas" data-draw="rama_chart" data-source="laboral_area" role="img" aria-label="Ocupados por rama de actividad, año seleccionado frente a 2018"></div>
+    </div>
+  </div>
+  <div class="card tblwrap" style="margin-top:var(--cds-gap-lg)">
+    <table id="tabla-periodos" data-source="periodos_lab" data-row-key="clave">
+      <thead><tr><th data-field="territorio">Territorio</th><th data-field="indicador">Indicador</th><th class="n" data-field="antes">Antes</th><th class="n" data-field="operacion">Operación 2019–23</th><th class="n" data-field="post">Paralizada 2024–26</th><th class="n" data-field="cambio_op">Operación vs. antes</th><th class="n" data-field="cambio_post">Paralizada vs. operación</th></tr></thead>
+      <tbody data-draw="tabla_per"></tbody>
+    </table>
+    <p class="note">Promedios anuales. «Antes»: 2015–2018 para desempleo e informalidad; 2017–2018 para ramas (primeros años con datos). Las tasas cambian en puntos porcentuales; los ocupados, en %.</p>
+  </div>
+</section>
+
+<section id="servicios">
+  <h2>Servicios básicos: educación, salud y mortalidad</h2>
+  <p class="muted" style="margin-bottom:var(--cds-gap-sm)">Educación (matrícula MEDUCA 2026) y salud (MINSA 2024) son fotografías de un solo año: muestran la situación actual, no un antes y después. La mortalidad sí tiene serie 2021–2025.</p>
+  <div class="grid2">
+    <div class="card tblwrap">
+      <table id="tabla-servicios" data-source="servicios" data-row-key="distrito">
+        <thead><tr><th data-field="distrito">Distrito</th><th class="n" data-field="escuelas">Escuelas</th><th class="n" data-field="matricula">Matrícula</th><th class="n" data-field="media">Matrícula media</th><th class="n" data-field="matricula_x1000">Matr. por 1.000 hab.</th><th class="n" data-field="salud_total">Inst. salud</th><th class="n" data-field="salud_no_funcionan">No funcionan</th><th class="n" data-field="mides_x100">MIDES por 100 hab.</th></tr></thead>
+        <tbody data-draw="tabla_serv"></tbody>
+      </table>
+    </div>
+    <div class="card">
+      <h2 style="font-size:var(--cds-font-size-body)">Tasa de mortalidad general (por 1.000 hab.)</h2>
+      <div class="chart" id="mortalidad" data-draw="mort_chart" data-source="mortalidad" role="img" aria-label="Tasa de mortalidad general 2021-2025 por distrito y país" style="min-height:260px"></div>
+      <p class="note">En distritos pequeños pocas defunciones mueven mucho la tasa: Omar Torrijos Herrera tuvo <span data-draw="mort_min" data-source="mortalidad" data-field="defunciones" data-where="territorio=Omar Torrijos Herrera&amp;anio=2023">—</span> defunciones en 2023 y <span data-draw="mort_max" data-source="mortalidad" data-field="defunciones" data-where="territorio=Omar Torrijos Herrera&amp;anio=2021">—</span> en 2021.</p>
+    </div>
+  </div>
+</section>
+
+<section id="conclusion" class="card">
+  <h2>¿Impacto positivo, negativo o sin cambio?</h2>
+  <p class="muted" style="margin-bottom:var(--cds-gap-sm)">Lectura automática de los datos para el distrito elegido en el filtro.</p>
+  <ul class="verd" data-draw="veredictos"></ul>
+  <p class="note" style="margin-top:var(--cds-gap-md)">Esto es una comparación antes/después, no una evaluación de impacto causal: entre 2015 y 2023 también ocurrieron la pandemia (2020) y cambios nacionales, y no hay un grupo de comparación sin mina en estos datos. La construcción (antes de 2019) ya generaba empleo y gasto local, por lo que 2015 no es un «sin mina» puro.</p>
+</section>
+
+<details id="notas">
+  <summary>Fuentes, definiciones y supuestos</summary>
+  <ul>
+    <li><b>Pobreza por ingreso</b> (general y extrema, 2011, 2015, 2023): mapas de pobreza MEF/Banco Mundial. El de 2023 usa el Censo 2023 y la EPM 2022; los anteriores usan otra base, así que las diferencias pequeñas pueden ser metodológicas.</li>
+    <li><b>IPM</b>: % de personas en pobreza multidimensional, Censo 2010 y 2023.</li>
+    <li><b>Empleo</b>: Encuesta de Mercado Laboral INEC (agosto u octubre de cada año); 2024 usa la cifra revisada. Informalidad: empleo informal entre los ocupados no agrícolas.</li>
+    <li><b>Educación</b>: matrícula 2026 MEDUCA por centro (los CAIPI y escuelas EDJA sin datos cuentan como escuela con matrícula 0). <b>Salud</b>: listado MINSA 2024. <b>Agro</b>: VIII Censo Agropecuario 2024. <b>Mortalidad</b>: INEC 2021–2025.</li>
+    <li><b>Ponderación</b>: los valores de distrito y del área de estudio son promedios ponderados por población (Censo 2010 para 2010–2015; población 2023 para 2023). Llano Norte, Nueva Esperanza y San Juan de Turbe no tienen dato propio en 2011–2015, así que en esos años cuenta el corregimiento del que se separaron.</li>
+    <li><b>Etapas</b>: operación comercial desde 2019; la Corte Suprema declaró inconstitucional el contrato el 28 de noviembre de 2023 y la mina quedó paralizada. En abril de 2026 se autorizó procesar el material ya expuesto.</li>
+    <li><b>Mapa</b>: límites de corregimientos geoBoundaries (anteriores a 2018); ubicación de la mina aproximada. Escuelas y salud se dibujan en el centro de cada corregimiento, no en su ubicación real.</li>
+  </ul>
+</details>
+
+</div>
+</section>
+
+<section id="historia" hidden>
+<div class="st" data-read lang="es">
+  <header class="st-intro" id="intro">
+    <h1>La mina y sus vecinos: diez escenas de 2015 a 2026</h1>
+    <p>La Pintada (Coclé), Donoso y Omar Torrijos Herrera (Colón) rodean la mina Cobre Panamá, que operó de 2019 a noviembre de 2023. Desplázate para ver cómo cambiaron la pobreza y el empleo, y cómo están hoy la salud, el acceso y las escuelas.</p>
+  </header>
+  <div class="st-body">
+    <div class="st-steps">
+      <section class="st-step" data-step="0" id="cap-2015"><div class="st-card">
+        <p class="st-kicker">2015 · antes de operar</p>
+        <h2>Una zona pobre antes de la operación</h2>
+        <p>En 2015, con la mina aún en construcción, el <b data-draw="fig" data-source="antes_despues" data-field="antes" data-where="clave=area_pgen_b" data-fmt="pct">—</b> de las personas de los tres distritos vivía en pobreza por ingreso. Los corregimientos del norte, en Donoso, eran los más pobres.</p>
+        <div class="st-print" data-draw="vista" data-vista="0" data-source="mapa unidades"></div>
+      </div></section>
+      <section class="st-step" data-step="1" id="cap-2023"><div class="st-card">
+        <p class="st-kicker">2023 · con la mina operando</p>
+        <h2>Ocho años después, el mapa cambió poco</h2>
+        <p>En 2023 la pobreza era del <b data-draw="fig" data-source="antes_despues" data-field="despues" data-where="clave=area_pgen_b" data-fmt="pct">—</b>: un cambio de <b data-draw="fig" data-source="antes_despues" data-field="cambio" data-where="clave=area_pgen_b" data-fmt="pp">—</b> puntos en ocho años.</p>
+        <div class="st-print" data-draw="vista" data-vista="1" data-source="mapa unidades"></div>
+      </div></section>
+      <section class="st-step" data-step="2" id="cap-donde"><div class="st-card">
+        <p class="st-kicker">Dónde cambió</p>
+        <h2>La mejora fue desigual</h2>
+        <p>En Río Indio la pobreza cambió <b data-draw="fig" data-source="unidades" data-field="d_pgen" data-where="unidad=RIO INDIO" data-fmt="pp">—</b> puntos entre 2015 y 2023. En Coclé del Norte, junto a la mina, cambió <b data-draw="fig" data-source="unidades" data-field="d_pgen" data-where="unidad=COCLE DEL NORTE" data-fmt="pp">—</b>.</p>
+        <div class="st-print" data-draw="vista" data-vista="2" data-source="mapa unidades"></div>
+      </div></section>
+      <section class="st-step" data-step="3" id="cap-ritmo"><div class="st-card">
+        <p class="st-kicker">El ritmo</p>
+        <h2>La pobreza caía más rápido antes de la operación</h2>
+        <p>Entre 2011 y 2015 la pobreza general cambiaba <b data-draw="fig" data-source="antes_despues" data-field="cambio_anual" data-where="clave=area_pgen_a" data-fmt="pp2">—</b> puntos por año. Entre 2015 y 2023, <b data-draw="fig" data-source="antes_despues" data-field="cambio_anual" data-where="clave=area_pgen_b" data-fmt="pp2">—</b>. La operación no aceleró la reducción de la pobreza por ingreso.</p>
+        <div class="st-print" data-draw="vista" data-vista="3" data-source="indicadores"></div>
+      </div></section>
+      <section class="st-step" data-step="4" id="cap-ipm"><div class="st-card">
+        <p class="st-kicker">Condiciones de vida</p>
+        <h2>La pobreza multidimensional sí bajó con fuerza</h2>
+        <p>El índice que mide vivienda, servicios, educación y salud pasó de <b data-draw="fig" data-source="antes_despues" data-field="antes" data-where="clave=area_ipm_b" data-fmt="pct">—</b> en 2010 a <b data-draw="fig" data-source="antes_despues" data-field="despues" data-where="clave=area_ipm_b" data-fmt="pct">—</b> en 2023. Ese periodo incluye la construcción y la operación.</p>
+        <div class="st-print" data-draw="vista" data-vista="4" data-source="indicadores"></div>
+      </div></section>
+      <section class="st-step" data-step="5" id="cap-mineria"><div class="st-card">
+        <p class="st-kicker">Empleo minero</p>
+        <h2>El empleo minero dependió de la operación</h2>
+        <p>En Coclé y Colón había en promedio <b data-draw="fig" data-source="periodos_lab" data-field="antes" data-where="clave=cocle_colon_ocup_mineria" data-fmt="n">—</b> ocupados en minas y canteras al año antes de 2019, <b data-draw="fig" data-source="periodos_lab" data-field="operacion" data-where="clave=cocle_colon_ocup_mineria" data-fmt="n">—</b> durante la operación y <b data-draw="fig" data-source="periodos_lab" data-field="post" data-where="clave=cocle_colon_ocup_mineria" data-fmt="n">—</b> con la mina paralizada. Son estimaciones de encuesta: miran la tendencia, no el conteo exacto.</p>
+        <div class="st-print" data-draw="vista" data-vista="5" data-source="lab_anual"></div>
+      </div></section>
+      <section class="st-step" data-step="6" id="cap-desempleo"><div class="st-card">
+        <p class="st-kicker">Desempleo</p>
+        <h2>El desempleo subió, pero menos que en el país</h2>
+        <p>En Coclé y Colón la tasa pasó de <b data-draw="fig" data-source="periodos_lab" data-field="antes" data-where="clave=cocle_colon_tasa_desempleo" data-fmt="pct">—</b> antes de 2019 a <b data-draw="fig" data-source="periodos_lab" data-field="operacion" data-where="clave=cocle_colon_tasa_desempleo" data-fmt="pct">—</b> durante la operación. En todo el país pasó de <b data-draw="fig" data-source="periodos_lab" data-field="antes" data-where="clave=panama_tasa_desempleo" data-fmt="pct">—</b> a <b data-draw="fig" data-source="periodos_lab" data-field="operacion" data-where="clave=panama_tasa_desempleo" data-fmt="pct">—</b>, con la pandemia de por medio.</p>
+        <div class="st-print" data-draw="vista" data-vista="6" data-source="lab_anual"></div>
+      </div></section>
+      <section class="st-step" data-step="7" id="cap-salud"><div class="st-card">
+        <p class="st-kicker">Salud de los habitantes</p>
+        <h2>Enfermedades crónicas y atención lejos de casa</h2>
+        <p>En Coclé del Norte, el <b data-draw="fig" data-source="externos" data-field="valor" data-where="clave=hta_cocle_norte" data-fmt="pct">—</b> de los adultos tiene hipertensión, y en Miguel de la Borda el <b data-draw="fig" data-source="externos" data-field="valor" data-where="clave=hta_miguel_borda" data-fmt="pct">—</b>: dos de los cinco corregimientos con la cifra más alta de la región de salud de Colón. La Pintada registró <b data-draw="fig" data-source="externos" data-field="valor" data-where="clave=erc_la_pintada" data-fmt="n">—</b> casos de enfermedad renal crónica en 2023.</p>
+        <p style="margin-top:8px">La atención queda lejos: en 2025, el <b data-draw="fig" data-source="acceso_salud" data-field="pct_fuera" data-where="territorio=Donoso" data-fmt="pct">—</b> de las muertes en Donoso y el <b data-draw="fig" data-source="acceso_salud" data-field="pct_fuera" data-where="territorio=Omar Torrijos Herrera" data-fmt="pct">—</b> en Omar Torrijos Herrera ocurrieron fuera de una instalación de salud, frente al <b data-draw="fig" data-source="acceso_salud" data-field="pct_fuera" data-where="territorio=Panamá (total)" data-fmt="pct">—</b> en todo el país. Y <b data-draw="fig" data-source="servicios" data-field="salud_no_funcionan" data-where="distrito=Área de estudio" data-fmt="n">—</b> de las <b data-draw="fig" data-source="servicios" data-field="salud_total" data-where="distrito=Área de estudio" data-fmt="n">—</b> instalaciones de salud de la zona no funcionan.</p>
+        <p class="st-kicker" style="margin-top:10px;text-transform:none;letter-spacing:0">Hipertensión: ENSPA 2019 (Instituto Gorgas), adultos de 18 años y más. Enfermedad renal: ASIS 2024 de MINSA Coclé. No hay cifras comparables de antes de 2019, así que esto describe la situación actual, no el efecto de la mina.</p>
+        <div class="st-print" data-draw="vista" data-vista="7" data-source="acceso_salud"></div>
+      </div></section>
+      <section class="st-step" data-step="8" id="cap-acceso"><div class="st-card">
+        <p class="st-kicker">Acceso a vías y servicios</p>
+        <h2>Comunidades pequeñas, dispersas y lejos de la carretera</h2>
+        <p>En Río Indio, el <b data-draw="fig" data-source="dispersion" data-field="pct_menos100" data-where="clave=RIO INDIO" data-fmt="pct">—</b> de la población vive en lugares de menos de 100 habitantes; en Gobea, el <b data-draw="fig" data-source="dispersion" data-field="pct_menos100" data-where="clave=GOBEA" data-fmt="pct">—</b>, y en El Guásimo, el <b data-draw="fig" data-source="dispersion" data-field="pct_menos100" data-where="clave=EL GUASIMO" data-fmt="pct">—</b>. En la cabecera de La Pintada es solo el <b data-draw="fig" data-source="dispersion" data-field="pct_menos100" data-where="clave=LA PINTADA" data-fmt="pct">—</b>. Llevar caminos, agua y luz a caseríos tan pequeños es más difícil y caro.</p>
+        <p style="margin-top:8px">En Donoso, el <b data-draw="fig" data-source="externos" data-field="valor" data-where="clave=agua_donoso" data-fmt="pct">—</b> de las viviendas no tiene agua potable y el <b data-draw="fig" data-source="externos" data-field="valor" data-where="clave=luz_donoso" data-fmt="pct">—</b> no tiene electricidad. MINSA describe a Donoso y Omar Torrijos Herrera como zonas de acceso difícil y muy difícil, y en Coclé la mayoría de los caminos de tierra solo se transitan en temporada seca.</p>
+        <p class="st-kicker" style="margin-top:10px;text-transform:none;letter-spacing:0">El Excel no trae datos de caminos. Con el inventario vial del MOP se podría medir la distancia de cada comunidad a una carretera pavimentada.</p>
+        <div class="st-print" data-draw="vista" data-vista="8" data-source="mapa unidades dispersion"></div>
+      </div></section>
+      <section class="st-step" data-step="9" id="cap-escuelas"><div class="st-card">
+        <p class="st-kicker">Escuelas</p>
+        <h2>Muchas escuelas primarias, casi ninguna con educación media</h2>
+        <p>Los tres distritos tienen <b data-draw="fig" data-source="escuelas_oferta" data-field="escuelas" data-where="distrito=Área de estudio" data-fmt="n">—</b> escuelas, pero solo <b data-draw="fig" data-source="escuelas_oferta" data-field="con_premedia" data-where="distrito=Área de estudio" data-fmt="n">—</b> ofrecen premedia y <b data-draw="fig" data-source="escuelas_oferta" data-field="con_media" data-where="distrito=Área de estudio" data-fmt="n">—</b> ofrecen media. La matrícula cae al subir de nivel: <b data-draw="fig" data-source="escuelas_oferta" data-field="primaria" data-where="distrito=Área de estudio" data-fmt="n">—</b> estudiantes en primaria, <b data-draw="fig" data-source="escuelas_oferta" data-field="premedia" data-where="distrito=Área de estudio" data-fmt="n">—</b> en premedia y <b data-draw="fig" data-source="escuelas_oferta" data-field="media" data-where="distrito=Área de estudio" data-fmt="n">—</b> en media. En Omar Torrijos Herrera solo asiste a la escuela el <b data-draw="fig" data-source="externos" data-field="valor" data-where="clave=asist_oth" data-fmt="pct">—</b> de las personas de 4 a 24 años.</p>
+        <p style="margin-top:8px">Para pasar de describir a medir el impacto de la mina, el siguiente paso es comparar estas cifras con distritos parecidos sin mina y conseguir datos de salud, caminos y escuelas de antes de 2019.</p>
+        <div class="st-print" data-draw="vista" data-vista="9" data-source="escuelas_oferta"></div>
+      </div></section>
+    </div>
+    <div class="st-stage">
+      <div class="st-chart" id="escena" data-draw="escena" data-source="mapa unidades indicadores lab_anual acceso_salud dispersion escuelas_oferta" role="img" aria-label="Gráfico que cambia con cada capítulo"></div>
+    </div>
+  </div>
+  <details class="st-foot" id="notas-historia">
+    <summary>Fuentes y supuestos</summary>
+    <p>Pobreza por ingreso: mapas MEF/Banco Mundial 2011, 2015 y 2023 (el de 2023 usa otra base, así que las diferencias pequeñas pueden ser metodológicas). IPM: Censos 2010 y 2023. Empleo: Encuesta de Mercado Laboral INEC; «antes» es 2015–2018 para el desempleo y 2017–2018 para el empleo minero. Instalaciones de salud: MINSA 2024. Defunciones por sitio de ocurrencia: INEC 2025. Lugares poblados: mapa de pobreza MEF/Banco Mundial con el Censo 2023. Escuelas: matrícula MEDUCA 2026. Cifras tomadas de informes públicos (tabla «externos», cada fila con su enlace): hipertensión por corregimiento de la ENSPA 2019 del Instituto Gorgas; enfermedad renal crónica, agua, electricidad, asistencia escolar y acceso, de los Análisis de Situación de Salud 2024 de MINSA Coclé y Colón. Los valores de distrito se ponderan por población. Mapa: límites de corregimientos anteriores a 2018 (geoBoundaries); Llano Norte se muestra dentro de Llano Grande, y Nueva Esperanza y San Juan de Turbe dentro de San José del General. La ubicación de la mina es aproximada. Esto es una comparación antes/después, no una evaluación causal.</p>
+  </details>
+</div>
+</section>
+</div>
+<script src="vendor/d3.min.js"></script>
+<script src="dash-shim.js"></script>
+<script src="calc.js"></script>
+<script src="extra.js"></script>
+<script src="ui.js"></script>
+<script src="mapa.js"></script>
+<script src="graficos.js"></script>
+<script src="st.js"></script>
+<script src="tabs.js"></script>
+<script>dash.start();</script>
+</body>
+</html>
