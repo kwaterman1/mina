@@ -108,13 +108,13 @@ window.MZ = (() => {
   });
   bind('#f-anio', 'anio', Number); bind('#f-distrito', 'distrito'); bind('#f-capa', 'capa'); bind('#f-pobind', 'pob_ind');
   bind('#f-labind', 'lab_ind'); bind('#f-ramaprov', 'rama_prov'); bind('#f-ramaarea', 'rama_area');
-  bind('#ov-mina', 'ov_mina'); bind('#ov-esc', 'ov_esc'); bind('#ov-sal', 'ov_sal'); bind('#ov-lbl', 'ov_lbl');
+  bind('#ov-mina', 'ov_mina'); bind('#ov-esc', 'ov_esc'); bind('#ov-sal', 'ov_sal'); bind('#ov-lbl', 'ov_lbl'); bind('#ov-srv', 'ov_srv'); bind('#f-srv', 'srv_tipo');
   dash.onData(() => {
     const p = dash.params();
     const set = (sel, v) => document.querySelectorAll(sel).forEach((el) => { if (document.activeElement === el) return; if (el.type === 'checkbox') el.checked = !!v; else el.value = String(v ?? ''); });
     set('#f-anio', p.anio ?? 2023); set('#f-distrito', p.distrito ?? ''); set('#f-capa', p.capa ?? 'pgen'); set('#f-pobind', p.pob_ind ?? 'pgen');
     set('#f-labind', p.lab_ind ?? 'ocup_mineria'); set('#f-ramaprov', p.rama_prov ?? 'Colón'); set('#f-ramaarea', p.rama_area ?? 'Total');
-    set('#ov-mina', p.ov_mina ?? true); set('#ov-esc', p.ov_esc ?? false); set('#ov-sal', p.ov_sal ?? false); set('#ov-lbl', p.ov_lbl ?? true);
+    set('#ov-mina', p.ov_mina ?? true); set('#ov-esc', p.ov_esc ?? false); set('#ov-sal', p.ov_sal ?? false); set('#ov-lbl', p.ov_lbl ?? true); set('#ov-srv', p.ov_srv ?? false); set('#f-srv', p.srv_tipo ?? 'internet');
     const et = MZ.etapa(MZ.anio());
     document.querySelectorAll('.timeline [data-etapa]').forEach((d) => { d.className = d.dataset.etapa === et ? 'on' : ''; });
   });

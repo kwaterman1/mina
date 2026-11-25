@@ -5,9 +5,9 @@
   const SOURCES = {
     corregimientos: 'table', escuelas: 'table', salud: 'table', laboral_provincias: 'table', laboral_area: 'table',
     informalidad: 'table', mortalidad: 'table', mortalidad_infantil: 'table', lugares_poblados: 'table',
-    defunciones_sitio: 'table', externos: 'table', mapa: 'static:data/mapa_corregimientos.json',
+    defunciones_sitio: 'table', externos: 'table', escuelas_servicios: 'table', servicios_escuelas_ref: 'table', mapa: 'static:data/mapa_corregimientos.json',
   };
-  const DEFAULT_PARAMS = { anio: 2023, distrito: '', capa: 'pgen', pob_ind: 'pgen', lab_ind: 'ocup_mineria', rama_prov: 'Colón', rama_area: 'Total', ov_mina: true, ov_esc: false, ov_sal: false, ov_lbl: true };
+  const DEFAULT_PARAMS = { anio: 2023, distrito: '', capa: 'pgen', pob_ind: 'pgen', lab_ind: 'ocup_mineria', rama_prov: 'Colón', rama_area: 'Total', ov_mina: true, ov_esc: false, ov_sal: false, ov_lbl: true, ov_srv: false, srv_tipo: 'internet' };
 
   const sources = {}; // id -> {status, data, message}
   const calcs = {};   // id -> def

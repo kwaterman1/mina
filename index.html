@@ -96,7 +96,17 @@
     <label><input type="checkbox" id="ov-sal"> Instalaciones de salud</label>
     <label><input type="checkbox" id="ov-lbl"> Nombres</label>
   </div>
-  <div class="mapbox" id="mapa" data-draw="mapa" data-source="unidades mapa escuelas salud" role="img" aria-label="Mapa coroplético de los corregimientos del área de estudio"></div>
+  <div class="checks">
+    <label><input type="checkbox" id="ov-srv"> Servicios en cada escuela (ubicación real)</label>
+    <label>Servicio
+      <select class="dash-select" id="f-srv" aria-label="Servicio de las escuelas en el mapa">
+        <option value="internet">Internet</option>
+        <option value="luz_red">Electricidad de red</option>
+        <option value="agua_red">Agua de red o acueducto</option>
+      </select>
+    </label>
+  </div>
+  <div class="mapbox" id="mapa" data-draw="mapa" data-source="unidades mapa escuelas salud escuelas_servicios" role="img" aria-label="Mapa coroplético de los corregimientos del área de estudio"></div>
   <div class="legend" data-draw="mapa_leyenda"></div>
   <p class="note">Límites de corregimientos anteriores a 2018 (geoBoundaries): Llano Norte se muestra dentro de Llano Grande, y Nueva Esperanza y San Juan de Turbe dentro de San José del General; sus valores se ponderan por población. Pasa el cursor sobre un corregimiento para ver el detalle.</p>
 </section>
@@ -191,6 +201,14 @@
       <p class="note">En distritos pequeños pocas defunciones mueven mucho la tasa: Omar Torrijos Herrera tuvo <span data-draw="mort_min" data-source="mortalidad" data-field="defunciones" data-where="territorio=Omar Torrijos Herrera&amp;anio=2023">—</span> defunciones en 2023 y <span data-draw="mort_max" data-source="mortalidad" data-field="defunciones" data-where="territorio=Omar Torrijos Herrera&amp;anio=2021">—</span> en 2021.</p>
     </div>
   </div>
+  <div class="card tblwrap" style="margin-top:var(--cds-gap-lg)">
+    <h2 style="font-size:var(--cds-font-size-body)">Internet, agua y electricidad en las escuelas (MEDUCA, Servicios Básicos 2025)</h2>
+    <table id="tabla-srv-esc" data-source="servicios_escuelas" data-row-key="territorio">
+      <thead><tr><th data-field="territorio">Territorio</th><th class="n" data-field="con_dato">Escuelas con dato</th><th class="n" data-field="pct_internet">Con internet</th><th class="n" data-field="pct_est_internet">Estudiantes con internet</th><th class="n" data-field="pct_agua_red">Agua de red o acueducto</th><th class="n" data-field="pct_sin_red_pozo">Sin red ni pozo</th><th class="n" data-field="pct_luz_red">Electricidad de red</th><th class="n" data-field="pct_solo_solar">Solo energía solar</th></tr></thead>
+      <tbody data-draw="tabla_srv_esc"></tbody>
+    </table>
+    <p class="note">Porcentaje de escuelas. «Sin especificar» cuenta como sin el servicio. Distritos: escuelas de la matrícula 2026 con registro de servicios; provincias y país: todas las escuelas del registro. Activa «Servicios en cada escuela» en el mapa para verlas una por una.</p>
+  </div>
 </section>
 
 <section id="conclusion" class="card">
@@ -206,10 +224,10 @@
     <li><b>Pobreza por ingreso</b> (general y extrema, 2011, 2015, 2023): mapas de pobreza MEF/Banco Mundial. El de 2023 usa el Censo 2023 y la EPM 2022; los anteriores usan otra base, así que las diferencias pequeñas pueden ser metodológicas.</li>
     <li><b>IPM</b>: % de personas en pobreza multidimensional, Censo 2010 y 2023.</li>
     <li><b>Empleo</b>: Encuesta de Mercado Laboral INEC (agosto u octubre de cada año); 2024 usa la cifra revisada. Informalidad: empleo informal entre los ocupados no agrícolas.</li>
-    <li><b>Educación</b>: matrícula 2026 MEDUCA por centro (los CAIPI y escuelas EDJA sin datos cuentan como escuela con matrícula 0). <b>Salud</b>: listado MINSA 2024. <b>Agro</b>: VIII Censo Agropecuario 2024. <b>Mortalidad</b>: INEC 2021–2025.</li>
+    <li><b>Educación</b>: matrícula 2026 MEDUCA por centro (los CAIPI y escuelas EDJA sin datos cuentan como escuela con matrícula 0). <b>Servicios en las escuelas</b>: MEDUCA, Servicios Básicos 2025, unido a la matrícula por código SIACE (131 de 141 escuelas; las 10 sin registro tienen matrícula 0). «Agua de red» incluye IDAAN y acueducto rural; «sin red ni pozo», río, lluvia, tanques, camión o ninguna; «no especificado» cuenta como sin el servicio. <b>Salud</b>: listado MINSA 2024. <b>Agro</b>: VIII Censo Agropecuario 2024. <b>Mortalidad</b>: INEC 2021–2025.</li>
     <li><b>Ponderación</b>: los valores de distrito y del área de estudio son promedios ponderados por población (Censo 2010 para 2010–2015; población 2023 para 2023). Llano Norte, Nueva Esperanza y San Juan de Turbe no tienen dato propio en 2011–2015, así que en esos años cuenta el corregimiento del que se separaron.</li>
     <li><b>Etapas</b>: operación comercial desde 2019; la Corte Suprema declaró inconstitucional el contrato el 28 de noviembre de 2023 y la mina quedó paralizada. En abril de 2026 se autorizó procesar el material ya expuesto.</li>
-    <li><b>Mapa</b>: límites de corregimientos geoBoundaries (anteriores a 2018); ubicación de la mina aproximada. Escuelas y salud se dibujan en el centro de cada corregimiento, no en su ubicación real.</li>
+    <li><b>Mapa</b>: límites de corregimientos geoBoundaries (anteriores a 2018); ubicación de la mina aproximada. Escuelas (por matrícula) y salud se dibujan en el centro de cada corregimiento; la capa «Servicios en cada escuela» usa las coordenadas reales de MEDUCA (falta 1 escuela sin coordenadas).</li>
   </ul>
 </details>
 
@@ -219,8 +237,12 @@
 <section id="historia" hidden>
 <div class="st" data-read lang="es">
   <header class="st-intro" id="intro">
-    <h1>La mina y sus vecinos: diez escenas de 2015 a 2026</h1>
+    <h1>La mina y sus vecinos: once escenas de 2015 a 2026</h1>
     <p>La Pintada (Coclé), Donoso y Omar Torrijos Herrera (Colón) rodean la mina Cobre Panamá, que operó de 2019 a noviembre de 2023. Desplázate para ver cómo cambiaron la pobreza y el empleo, y cómo están hoy la salud, el acceso y las escuelas.</p>
+    <details class="st-foot" id="notas-historia">
+      <summary>Fuentes y supuestos</summary>
+      <p>Pobreza por ingreso: mapas MEF/Banco Mundial 2011, 2015 y 2023 (el de 2023 usa otra base, así que las diferencias pequeñas pueden ser metodológicas). IPM: Censos 2010 y 2023. Empleo: Encuesta de Mercado Laboral INEC; «antes» es 2015–2018 para el desempleo y 2017–2018 para el empleo minero. Instalaciones de salud: MINSA 2024. Defunciones por sitio de ocurrencia: INEC 2025. Lugares poblados: mapa de pobreza MEF/Banco Mundial con el Censo 2023. Escuelas: matrícula MEDUCA 2026; internet, agua y electricidad de cada escuela: MEDUCA, Servicios Básicos 2025, unidos por código SIACE (131 de 141 escuelas; «no especificado» cuenta como sin el servicio). Cifras tomadas de informes públicos (tabla «externos», cada fila con su enlace): hipertensión por corregimiento de la ENSPA 2019 del Instituto Gorgas; enfermedad renal crónica, agua, electricidad, asistencia escolar y acceso, de los Análisis de Situación de Salud 2024 de MINSA Coclé y Colón. Los valores de distrito se ponderan por población. Mapa: límites de corregimientos anteriores a 2018 (geoBoundaries); Llano Norte se muestra dentro de Llano Grande, y Nueva Esperanza y San Juan de Turbe dentro de San José del General. La ubicación de la mina es aproximada. Esto es una comparación antes/después, no una evaluación causal.</p>
+    </details>
   </header>
   <div class="st-body">
     <div class="st-steps">
@@ -286,18 +308,22 @@
         <p class="st-kicker">Escuelas</p>
         <h2>Muchas escuelas primarias, casi ninguna con educación media</h2>
         <p>Los tres distritos tienen <b data-draw="fig" data-source="escuelas_oferta" data-field="escuelas" data-where="distrito=Área de estudio" data-fmt="n">—</b> escuelas, pero solo <b data-draw="fig" data-source="escuelas_oferta" data-field="con_premedia" data-where="distrito=Área de estudio" data-fmt="n">—</b> ofrecen premedia y <b data-draw="fig" data-source="escuelas_oferta" data-field="con_media" data-where="distrito=Área de estudio" data-fmt="n">—</b> ofrecen media. La matrícula cae al subir de nivel: <b data-draw="fig" data-source="escuelas_oferta" data-field="primaria" data-where="distrito=Área de estudio" data-fmt="n">—</b> estudiantes en primaria, <b data-draw="fig" data-source="escuelas_oferta" data-field="premedia" data-where="distrito=Área de estudio" data-fmt="n">—</b> en premedia y <b data-draw="fig" data-source="escuelas_oferta" data-field="media" data-where="distrito=Área de estudio" data-fmt="n">—</b> en media. En Omar Torrijos Herrera solo asiste a la escuela el <b data-draw="fig" data-source="externos" data-field="valor" data-where="clave=asist_oth" data-fmt="pct">—</b> de las personas de 4 a 24 años.</p>
-        <p style="margin-top:8px">Para pasar de describir a medir el impacto de la mina, el siguiente paso es comparar estas cifras con distritos parecidos sin mina y conseguir datos de salud, caminos y escuelas de antes de 2019.</p>
         <div class="st-print" data-draw="vista" data-vista="9" data-source="escuelas_oferta"></div>
+      </div></section>
+      <section class="st-step" data-step="10" id="cap-servicios-escuelas"><div class="st-card">
+        <p class="st-kicker">Escuelas · servicios básicos</p>
+        <h2>Pocas escuelas con internet, y en Donoso casi ninguna con luz de la red</h2>
+        <p>Solo el <b data-draw="fig" data-source="servicios_escuelas" data-field="pct_internet" data-where="territorio=Área de estudio" data-fmt="pct">—</b> de las escuelas de los tres distritos tiene internet, frente al <b data-draw="fig" data-source="servicios_escuelas" data-field="pct_internet" data-where="territorio=Panamá (total)" data-fmt="pct">—</b> en todo el país. En Donoso, junto a la mina, son <b data-draw="fig" data-source="servicios_escuelas" data-field="n_internet" data-where="territorio=Donoso" data-fmt="n">—</b> de <b data-draw="fig" data-source="servicios_escuelas" data-field="con_dato" data-where="territorio=Donoso" data-fmt="n">—</b>. Las que sí tienen son las más grandes: reúnen al <b data-draw="fig" data-source="servicios_escuelas" data-field="pct_est_internet" data-where="territorio=Área de estudio" data-fmt="pct">—</b> de los estudiantes.</p>
+        <p style="margin-top:8px">La electricidad marca la mayor diferencia: en La Pintada el <b data-draw="fig" data-source="servicios_escuelas" data-field="pct_luz_red" data-where="territorio=La Pintada" data-fmt="pct">—</b> de las escuelas está conectado a la red, igual que el promedio de Coclé (<b data-draw="fig" data-source="servicios_escuelas" data-field="pct_luz_red" data-where="territorio=Coclé" data-fmt="pct">—</b>); en Donoso, solo el <b data-draw="fig" data-source="servicios_escuelas" data-field="pct_luz_red" data-where="territorio=Donoso" data-fmt="pct">—</b>, y el <b data-draw="fig" data-source="servicios_escuelas" data-field="pct_solo_solar" data-where="territorio=Donoso" data-fmt="pct">—</b> funciona solo con paneles solares. El agua de red o acueducto llega al <b data-draw="fig" data-source="servicios_escuelas" data-field="pct_agua_red" data-where="territorio=Donoso" data-fmt="pct">—</b> de las escuelas de Donoso y al <b data-draw="fig" data-source="servicios_escuelas" data-field="pct_agua_red" data-where="territorio=Omar Torrijos Herrera" data-fmt="pct">—</b> de las de Omar Torrijos Herrera.</p>
+        <p class="st-kicker" style="margin-top:10px;text-transform:none;letter-spacing:0">MEDUCA, Servicios Básicos 2025, unido a la matrícula 2026 por código de escuela. «No especificado» cuenta como sin el servicio, así que algunas cifras pueden quedar por debajo de la realidad.</p>
+        <p style="margin-top:8px">Para pasar de describir a medir el impacto de la mina, el siguiente paso es comparar estas cifras con distritos parecidos sin mina y conseguir datos de salud, caminos y escuelas de antes de 2019.</p>
+        <div class="st-print" data-draw="vista" data-vista="10" data-source="servicios_escuelas"></div>
       </div></section>
     </div>
     <div class="st-stage">
-      <div class="st-chart" id="escena" data-draw="escena" data-source="mapa unidades indicadores lab_anual acceso_salud dispersion escuelas_oferta" role="img" aria-label="Gráfico que cambia con cada capítulo"></div>
+      <div class="st-chart" id="escena" data-draw="escena" data-source="mapa unidades indicadores lab_anual acceso_salud dispersion escuelas_oferta servicios_escuelas" role="img" aria-label="Gráfico que cambia con cada capítulo"></div>
     </div>
   </div>
-  <details class="st-foot" id="notas-historia">
-    <summary>Fuentes y supuestos</summary>
-    <p>Pobreza por ingreso: mapas MEF/Banco Mundial 2011, 2015 y 2023 (el de 2023 usa otra base, así que las diferencias pequeñas pueden ser metodológicas). IPM: Censos 2010 y 2023. Empleo: Encuesta de Mercado Laboral INEC; «antes» es 2015–2018 para el desempleo y 2017–2018 para el empleo minero. Instalaciones de salud: MINSA 2024. Defunciones por sitio de ocurrencia: INEC 2025. Lugares poblados: mapa de pobreza MEF/Banco Mundial con el Censo 2023. Escuelas: matrícula MEDUCA 2026. Cifras tomadas de informes públicos (tabla «externos», cada fila con su enlace): hipertensión por corregimiento de la ENSPA 2019 del Instituto Gorgas; enfermedad renal crónica, agua, electricidad, asistencia escolar y acceso, de los Análisis de Situación de Salud 2024 de MINSA Coclé y Colón. Los valores de distrito se ponderan por población. Mapa: límites de corregimientos anteriores a 2018 (geoBoundaries); Llano Norte se muestra dentro de Llano Grande, y Nueva Esperanza y San Juan de Turbe dentro de San José del General. La ubicación de la mina es aproximada. Esto es una comparación antes/después, no una evaluación causal.</p>
-  </details>
 </div>
 </section>
 </div>

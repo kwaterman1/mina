@@ -148,6 +148,19 @@
     });
   });
 
+  dash.draw('tabla_srv_esc', (tb) => {
+    tb.replaceChildren(); const d = dash.data('servicios_escuelas');
+    if (d.status !== 'ok') { const tr = tb.insertRow(); const td = tr.insertCell(); td.colSpan = 8; td.textContent = d.status === 'error' ? 'No se pudieron cargar los servicios de las escuelas.' : '—'; return; }
+    const pc = (v) => (v === null || v === undefined ? 'n/d' : MZ.f1(v) + '%');
+    d.data.forEach((r) => {
+      const tr = tb.insertRow(); if (MZ.distrito() === r.territorio) tr.className = 'sel';
+      if (r.nivel === 'Total') tr.style.fontWeight = '600';
+      const c = (t, cls) => { const td = tr.insertCell(); td.textContent = t; if (cls) td.className = cls; };
+      c(r.territorio === 'Área de estudio' ? 'Los tres distritos' : r.nivel === 'Provincia' ? `Provincia de ${r.territorio}` : r.territorio === 'Panamá (total)' ? 'Todo el país' : r.territorio);
+      c(MZ.f0(r.con_dato), 'n'); c(pc(r.pct_internet), 'n'); c(pc(r.pct_est_internet), 'n'); c(pc(r.pct_agua_red), 'n'); c(pc(r.pct_sin_red_pozo), 'n'); c(pc(r.pct_luz_red), 'n'); c(pc(r.pct_solo_solar), 'n');
+    });
+  });
+
   dash.draw('mort_chart', (el) => {
     const msg = MZ.stateMsg(['mortalidad']);
     if (msg === null) { el.classList.add('dash-skeleton'); return; }
