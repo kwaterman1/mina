@@ -15,6 +15,7 @@
     pct_sup_sin_titulo: { t: 'Superficie sin título', u: '%', bad: true },
   };
   const MINA = [-80.633, 8.833];
+  const SRV = { internet: 'internet', luz_red: 'electricidad de red', agua_red: 'agua de red o acueducto' };
   const field = (capa) => { const c = CAPAS[capa]; if (!c.year) return capa; const y = MZ.pobYear(MZ.anio(), c.year); return y ? `${c.year}_${y}` : null; };
   const scaleFor = (capa, vals) => {
     const c = CAPAS[capa];
@@ -83,6 +84,21 @@
           }
         });
       }
+      if (p.ov_srv && MZ.ok('escuelas_servicios')) {
+        const k = SRV[p.srv_tipo] ? p.srv_tipo : 'internet';
+        const pts = dash.data('escuelas_servicios').data.filter((r) => +r.en_servicios === 1 && r.lon !== null && r.lat !== null && (!dist || r.distrito === dist));
+        const rr = d3.scaleSqrt().domain([0, d3.max(pts, (r) => +r.total) || 1]).range([3, Math.max(7, W / 70)]);
+        const tps = MZ.tip(el);
+        svg.append('g').selectAll('circle').data(pts.sort((a, b) => +b.total - +a.total)).join('circle')
+          .attr('cx', (r) => proj([+r.lon, +r.lat])[0]).attr('cy', (r) => proj([+r.lon, +r.lat])[1]).attr('r', (r) => rr(+r.total || 0))
+          .style('fill', (r) => (+r[k] === 1 ? 'var(--color-ok)' : 'var(--color-bg)')).style('fill-opacity', 0.95).style('stroke', (r) => (+r[k] === 1 ? 'var(--color-bg)' : 'var(--color-fg)')).style('stroke-width', (r) => (+r[k] === 1 ? 1 : 1.6))
+          .on('pointermove', (ev, r) => {
+            const [mx, my] = d3.pointer(ev, el);
+            tps.show([[r.centro], [`${r.corregimiento}, ${r.distrito} · ${MZ.f0(+r.total || 0)} estudiantes (2026)`, 's'],
+              [`Internet: ${+r.internet === 1 ? 'sí' : 'no'} · Electricidad: ${r.fuente_electrica || 'sin dato'}`], [`Agua: ${r.fuente_agua || 'sin dato'}`, 's']], mx, my);
+          })
+          .on('pointerleave', () => tps.hide());
+      }
       if (p.ov_lbl ?? true) {
         svg.append('g').style('pointer-events', 'none').selectAll('text').data(uni.filter((u) => cen.get(u.unidad))).join('text')
           .attr('x', (u) => cen.get(u.unidad)[0]).attr('y', (u) => cen.get(u.unidad)[1] - 6).attr('text-anchor', 'middle').attr('font-size', W < 500 ? 9 : 11)
@@ -113,6 +129,7 @@
     svg.append('text').attr('x', 0).attr('y', 24).attr('font-size', 11).style('fill', 'var(--cds-text-secondary)').text(fmtV(capa, a));
     svg.append('text').attr('x', 220).attr('y', 24).attr('text-anchor', 'end').attr('font-size', 11).style('fill', 'var(--cds-text-secondary)').text(fmtV(capa, b));
     if (CAPAS[capa].div) { const s = document.createElement('span'); s.textContent = 'Azul = bajó (mejora) · Rojo = subió'; el.appendChild(s); }
+    if (p.ov_srv) { const s = document.createElement('span'); s.textContent = `● verde: la escuela tiene ${SRV[p.srv_tipo] || SRV.internet} · ○ blanco: no tiene o sin especificar (tamaño = matrícula; MEDUCA 2025)`; el.appendChild(s); }
     if (p.ov_sal) { const s = document.createElement('span'); s.textContent = '+ verde: instalación funciona · + rojo: no funciona'; el.appendChild(s); }
   });
 })();

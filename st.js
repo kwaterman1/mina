@@ -209,6 +209,38 @@
     lv.forEach(([, t], i) => { lg.append('rect').attr('x', i * 90).attr('y', -9).attr('width', 10).attr('height', 10).style('fill', cols[i]); lg.append('text').attr('x', i * 90 + 14).attr('font-size', 11).style('fill', 'var(--cds-text-secondary)').text(t); });
   }
 
+  function serviciosEscView(el) {
+    if (wait(el, ['servicios_escuelas'])) return;
+    clear(el); const [W, H0] = size(el);
+    const order = ['La Pintada', 'Donoso', 'Omar Torrijos Herrera', 'Coclé', 'Colón', 'Panamá (total)'];
+    const nm = (r) => (r.nivel === 'Provincia' ? `${r.territorio} (prov.)` : r.territorio === 'Panamá (total)' ? 'Todo el país' : short(r.territorio));
+    const rows = order.map((n) => dash.data('servicios_escuelas').data.find((r) => r.territorio === n)).filter(Boolean);
+    const ks = [['pct_internet', 'Internet'], ['pct_luz_red', 'Electricidad de red'], ['pct_agua_red', 'Agua de red o acueducto']];
+    const cols = [dash.colors[0], dash.colors[1], dash.colors[2]];
+    const H = Math.min(Math.max(H0, 320), 60 + rows.length * 58);
+    const svg = svgIn(el, W, H, 'Porcentaje de escuelas con internet, electricidad de red y agua de red, 2025');
+    const p = svg.append('g'); let lw = 0; rows.forEach((r) => { const t = p.append('text').attr('font-size', 12).text(nm(r)); lw = Math.max(lw, t.node().getComputedTextLength()); }); p.remove();
+    const m = { t: 8, r: 44, b: 44, l: Math.min(lw + 14, W * 0.4) };
+    const y0 = d3.scaleBand().domain(rows.map((r) => r.territorio)).range([m.t, H - m.b]).paddingInner(0.28);
+    const y1 = d3.scaleBand().domain(ks.map((k) => k[0])).range([0, y0.bandwidth()]).padding(0.08);
+    const x = d3.scaleLinear().domain([0, 100]).range([m.l, W - m.r]);
+    svg.append('g').attr('class', 'gridl').attr('transform', `translate(0,${H - m.b})`).call(d3.axisBottom(x).ticks(4).tickSize(-(H - m.b - m.t)).tickFormat(''));
+    svg.append('g').attr('class', 'axis').attr('transform', `translate(0,${H - m.b})`).call(d3.axisBottom(x).ticks(4).tickFormat((v) => v + '%'));
+    const tp = tip(el);
+    const g = svg.append('g').selectAll('g').data(rows).join('g').attr('transform', (r) => `translate(0,${y0(r.territorio)})`);
+    g.append('rect').attr('x', m.l).attr('width', W - m.l - m.r).attr('height', y0.bandwidth()).style('fill', (r) => (r.nivel === 'Distrito' ? 'transparent' : 'var(--color-panel)'));
+    ks.forEach(([k], i) => {
+      g.append('rect').attr('x', m.l).attr('y', y1(k)).attr('height', y1.bandwidth()).attr('width', (r) => Math.max(0, x(r[k] || 0) - m.l)).attr('rx', 2).style('fill', cols[i]);
+      g.append('text').attr('x', (r) => x(r[k] || 0) + 4).attr('y', y1(k) + y1.bandwidth() / 2 + 3.5).attr('font-size', 10).style('fill', 'var(--cds-text-secondary)').text((r) => (r[k] === null ? '' : f0(r[k]) + '%'));
+    });
+    g.append('text').attr('x', m.l - 6).attr('y', y0.bandwidth() / 2 + 4).attr('text-anchor', 'end').attr('font-size', 12).style('fill', 'var(--color-fg)').style('font-weight', (r) => (r.nivel === 'Distrito' ? 600 : 400)).text(nm);
+    g.append('rect').attr('width', W).attr('height', y0.bandwidth()).style('fill', 'transparent')
+      .on('pointermove', (ev, r) => { const [px, py] = d3.pointer(ev, el); tp.show([[r.territorio === 'Panamá (total)' ? 'Todo el país' : r.territorio], [`${f0(r.con_dato)} escuelas con dato`, 's'], [`Internet ${f1(r.pct_internet)}% · Electricidad de red ${f1(r.pct_luz_red)}% · Agua de red ${f1(r.pct_agua_red)}%`], [`Solo energía solar ${f1(r.pct_solo_solar)}% · Sin red ni pozo ${f1(r.pct_sin_red_pozo)}%`, 's']], px, py); })
+      .on('pointerleave', () => tp.hide());
+    const lg = svg.append('g').attr('transform', `translate(${m.l},${H - 10})`); let lx = 0;
+    ks.forEach(([, t], i) => { lg.append('rect').attr('x', lx).attr('y', -9).attr('width', 10).attr('height', 10).style('fill', cols[i]); const tx = lg.append('text').attr('x', lx + 14).attr('font-size', 11).style('fill', 'var(--cds-text-secondary)').text(t); lx += 14 + tx.node().getComputedTextLength() + 16; });
+  }
+
   const labSeries = (k, names, cols, xMin) => { const rows = dash.data('lab_anual').data; return names.map((n, i) => ({ name: n, color: cols[i], dash: n === 'Panamá (total)' ? '4 3' : null, points: d3.range(xMin, 2027).map((yy) => { const r = rows.find((q) => q.territorio === n && q.anio === yy); return { x: yy, y: r ? r[k] : null }; }) })); };
   const VIEWS = [
     (el) => mapa(el, 'pgen_2015', 'Pobreza general 2015'),
@@ -226,6 +258,7 @@
     saludView,
     (el) => mapa(el, 'pct_menos100', 'Población en lugares de menos de 100 habitantes', 'dispersion'),
     escuelasView,
+    serviciosEscView,
   ];
   window.ST = window.ST || { step: 0 };
   const render = (el, k) => (VIEWS[k] || VIEWS[0])(el);

@@ -35,3 +35,22 @@ dash.calc('escuelas_oferta', {
       primaria: s('primaria'), premedia: s('premedia'), media: s('media'), media_por_100_primaria: s('primaria') ? Math.round(1000 * s('media') / s('primaria')) / 10 : null };
   }),
 });
+
+dash.calc('servicios_escuelas', {
+  title: 'Servicios básicos en las escuelas, 2025',
+  description: 'Por distrito, total del área y Coclé, Colón y país: % de escuelas con internet, agua de red o acueducto, sin red ni pozo, electricidad de red y solo energía solar (MEDUCA, Servicios Básicos 2025). Distritos: escuelas de la matrícula 2026 con registro de servicios.',
+  inputs: ['escuelas_servicios', 'servicios_escuelas_ref'],
+  fn: (esc, ref) => {
+    const pct = (n, d) => (d ? Math.round(1000 * n / d) / 10 : null);
+    const K = ['internet', 'agua_red', 'sin_red_pozo', 'luz_red', 'solo_solar'];
+    const out = ['La Pintada', 'Donoso', 'Omar Torrijos Herrera', 'Área de estudio'].map((d) => {
+      const todas = esc.filter((r) => d === 'Área de estudio' || r.distrito === d); const es = todas.filter((r) => +r.en_servicios === 1);
+      const est = es.reduce((a, r) => a + (+r.total || 0), 0), estI = es.filter((r) => +r.internet === 1).reduce((a, r) => a + (+r.total || 0), 0);
+      const o = { territorio: d, nivel: d === 'Área de estudio' ? 'Total' : 'Distrito', escuelas: todas.length, con_dato: es.length, estudiantes: est, pct_est_internet: pct(estI, est) };
+      K.forEach((k) => { o['n_' + k] = es.filter((r) => +r[k] === 1).length; o['pct_' + k] = pct(o['n_' + k], es.length); });
+      return o;
+    });
+    ref.forEach((r) => { const o = { territorio: r.territorio, nivel: r.nivel, escuelas: +r.escuelas, con_dato: +r.escuelas, estudiantes: null, pct_est_internet: null }; K.forEach((k) => { o['n_' + k] = +r[k]; o['pct_' + k] = pct(+r[k], +r.escuelas); }); out.push(o); });
+    return out;
+  },
+});
